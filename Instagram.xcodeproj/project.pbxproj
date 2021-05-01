@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -93,16 +93,11 @@
 		AB43D8022622BE5D00645350 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
-				AB43D8032622BE5D00645350 /* AppDelegate.swift */,
-				AB43D8052622BE5D00645350 /* SceneDelegate.swift */,
+				AB5AE1EC263D641D0028A58A /* Supporting files */,
 				AB43D8322622CF4600645350 /* Model */,
 				AB43D8182622C31A00645350 /* Controller */,
 				AB43D81A2622C32A00645350 /* View */,
 				AB43D8412622D3C800645350 /* Utils */,
-				AB43D8092622BE5D00645350 /* Main.storyboard */,
-				AB821926263AD1EC00FA291A /* GoogleService-Info.plist */,
-				AB43D80C2622BE5E00645350 /* Assets.xcassets */,
-				AB43D80E2622BE5E00645350 /* LaunchScreen.storyboard */,
 				AB43D8112622BE5E00645350 /* Info.plist */,
 			);
 			path = Instagram;
@@ -155,13 +150,25 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		AB5AE1EC263D641D0028A58A /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				AB43D8032622BE5D00645350 /* AppDelegate.swift */,
+				AB43D8052622BE5D00645350 /* SceneDelegate.swift */,
+				AB43D8092622BE5D00645350 /* Main.storyboard */,
+				AB821926263AD1EC00FA291A /* GoogleService-Info.plist */,
+				AB43D80C2622BE5E00645350 /* Assets.xcassets */,
+				AB43D80E2622BE5E00645350 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
 		D25DC969952740BC8E89FCE3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				93AE715DD2FA2583DB8C4B3C /* Pods-Instagram.debug.xcconfig */,
 				074CEC33DC4CCDF826F8F472 /* Pods-Instagram.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

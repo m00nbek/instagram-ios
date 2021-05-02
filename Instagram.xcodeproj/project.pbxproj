@@ -98,7 +98,9 @@
 				AB43D8182622C31A00645350 /* Controller */,
 				AB43D81A2622C32A00645350 /* View */,
 				AB43D8412622D3C800645350 /* Utils */,
+				AB43D80C2622BE5E00645350 /* Assets.xcassets */,
 				AB43D8112622BE5E00645350 /* Info.plist */,
+				AB821926263AD1EC00FA291A /* GoogleService-Info.plist */,
 			);
 			path = Instagram;
 			sourceTree = "<group>";
@@ -156,8 +158,6 @@
 				AB43D8032622BE5D00645350 /* AppDelegate.swift */,
 				AB43D8052622BE5D00645350 /* SceneDelegate.swift */,
 				AB43D8092622BE5D00645350 /* Main.storyboard */,
-				AB821926263AD1EC00FA291A /* GoogleService-Info.plist */,
-				AB43D80C2622BE5E00645350 /* Assets.xcassets */,
 				AB43D80E2622BE5E00645350 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting files";

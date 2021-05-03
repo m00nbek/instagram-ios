@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Firebase
 class RegistrationController: UIViewController {
     
     // MARK: - Properties
@@ -87,9 +87,10 @@ class RegistrationController: UIViewController {
         button.layer.borderColor = UIColor.white.cgColor
         button.alpha = 0.5
         button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         return button
     }()
-
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +99,43 @@ class RegistrationController: UIViewController {
     }
     
     // MARK: - Selectors
+    @objc func handleRegistration() {
+        guard let email = emailTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        guard let username = usernameTextField.text else {return}
+        guard let fullname = fullnameTextField.text else {return}
+        guard let profileImage = profileImage else {return}
+        
+        //let credentials = AuthCredentials(email: email, password: password, username: username, fullname: fullname, profileImage: profileImage)
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else {return}
+        let filename = NSUUID().uuidString
+        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
+        
+        storageRef.putData(imageData, metadata: nil) { (meta, error) in
+            storageRef.downloadURL { (url, error) in
+                guard let profileImageUrl = url?.absoluteString else {return}
+                Firebase.Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        print("Creating user error\(error.localizedDescription)")
+                        return
+                    }
+                    guard let uid = result?.user.uid else {return}
+                    let values = ["email": email,
+                                  "username": username,
+                                  "fullname": fullname,
+                                  "profileImageUrl": profileImageUrl]
+                    REF_USERS.child(uid).updateChildValues(values) { (error, ref) in
+                        print("DEBUG: Everything working")
+                    }
+                }
+            }
+        }
+        //                        guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return}
+        //                        guard let tab = window.rootViewController as? MainTabController else {return}
+        //                        tab.authUserAndUpdateUI()
+        //                        self.dismiss(animated: true, completion: nil)
+        
+    }
     @objc func handleShowLogin() {
         navigationController?.popViewController(animated: true)
     }
@@ -162,7 +200,7 @@ extension RegistrationController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if !textField.text!.isEmpty {
             if textField.placeholder == "Email" {
-                if isValidEmail(textField.text!) {
+                if isValidEmail(textField.text!) && !textField.text!.contains(" ") {
                     validEmail = true
                     updateUI(isValid: true, in: emailContainerView)
                 } else {
@@ -170,7 +208,7 @@ extension RegistrationController: UITextFieldDelegate {
                     updateUI(isValid: false, in: emailContainerView)
                 }
             } else if textField.placeholder == "Password" {
-                if textField.text!.count >= 6 {
+                if textField.text!.count >= 6 && !textField.text!.contains(" ") {
                     validPass = true
                     updateUI(isValid: true, in: passwordContainerView)
                 } else {
@@ -178,7 +216,7 @@ extension RegistrationController: UITextFieldDelegate {
                     updateUI(isValid: false, in: passwordContainerView)
                 }
             } else if textField.placeholder == "Username" {
-                if textField.text!.count >= 4 {
+                if textField.text!.count >= 4 && !textField.text!.contains(" ") {
                     validUsername = true
                     updateUI(isValid: true, in: usernameContainerView)
                 } else {
@@ -202,7 +240,7 @@ extension RegistrationController: UITextFieldDelegate {
         } else {
             view.layer.borderWidth = 0
         }
-        if validEmail != nil && validPass != nil && validUsername != nil {
+        if validEmail != nil && validPass != nil && validUsername != nil && validFullname != nil{
             if validEmail! && validPass! && validUsername! && validFullname! {
                 if isPhotoChosen {
                     addPhotoButton.tintColor = .white

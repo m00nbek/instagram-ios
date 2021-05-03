@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabController: UITabBarController {
     
     // MARK: - Properties
-    private let isLogged = false
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,7 @@ class MainTabController: UITabBarController {
     
     // MARK: - Helpers
     func authUserAndUpdateUI() {
-        if !isLogged {
+        if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
                 let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen
@@ -27,6 +28,13 @@ class MainTabController: UITabBarController {
             }
         } else {
             configureViewControllers()
+        }
+    }
+    func logOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            fatalError("DEBUG: Error while signing out Err: \(error)")
         }
     }
     func configureViewControllers() {

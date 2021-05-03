@@ -13,10 +13,9 @@ class RegistrationController: UIViewController {
     var validEmail: Bool?
     var validPass: Bool?
     var validUsername: Bool?
+    var validFullname: Bool?
     var isPhotoChosen: Bool = false {
-        didSet {
-            updateUI(isValid: true, in: addPhotoButton)
-        }
+        didSet { updateUI(isValid: true) }
     }
     private let bgImageView: UIImageView = {
         let iv = UIImageView()
@@ -55,11 +54,15 @@ class RegistrationController: UIViewController {
         view.layer.borderColor = UIColor.red.cgColor
         return view
     }()
+    private lazy var fullnameContainerView: UIView = {
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_person_outline_white_2x"), textField: fullnameTextField)
+        view.layer.borderColor = UIColor.red.cgColor
+        return view
+    }()
     private let emailTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Email")
         return tf
     }()
-    
     private let passwordTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Password")
         tf.isSecureTextEntry = true
@@ -67,6 +70,10 @@ class RegistrationController: UIViewController {
     }()
     private let usernameTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Username")
+        return tf
+    }()
+    private let fullnameTextField: UITextField = {
+        let tf = Utilities().textField(withPlaceholder: "Full Name")
         return tf
     }()
     private let signUpButton: UIButton = {
@@ -108,7 +115,7 @@ class RegistrationController: UIViewController {
         addPhotoButton.centerX(inView: view)
         addPhotoButton.setDimensions(width: 160, height: 160)
         
-        let stack = UIStackView(arrangedSubviews: [usernameContainerView, emailContainerView,
+        let stack = UIStackView(arrangedSubviews: [usernameContainerView, fullnameContainerView, emailContainerView,
                                                    passwordContainerView, signUpButton])
         stack.axis = .vertical
         stack.spacing = 20
@@ -127,6 +134,7 @@ class RegistrationController: UIViewController {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         emailTextField.delegate = self
+        fullnameTextField.delegate = self
     }
 }
 
@@ -169,13 +177,21 @@ extension RegistrationController: UITextFieldDelegate {
                     validPass = false
                     updateUI(isValid: false, in: passwordContainerView)
                 }
-            } else {
+            } else if textField.placeholder == "Username" {
                 if textField.text!.count >= 4 {
                     validUsername = true
                     updateUI(isValid: true, in: usernameContainerView)
                 } else {
                     validUsername = false
                     updateUI(isValid: false, in: usernameContainerView)
+                }
+            } else {
+                if textField.text!.count >= 4 {
+                    validFullname = true
+                    updateUI(isValid: true, in: fullnameContainerView)
+                } else {
+                    validFullname = false
+                    updateUI(isValid: false, in: fullnameContainerView)
                 }
             }
         }
@@ -187,7 +203,7 @@ extension RegistrationController: UITextFieldDelegate {
             view.layer.borderWidth = 0
         }
         if validEmail != nil && validPass != nil && validUsername != nil {
-            if validEmail! && validPass! && validUsername! {
+            if validEmail! && validPass! && validUsername! && validFullname! {
                 if isPhotoChosen {
                     addPhotoButton.tintColor = .white
                     signUpButton.alpha = 1

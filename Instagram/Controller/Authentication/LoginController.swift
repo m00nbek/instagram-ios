@@ -95,11 +95,12 @@ class LoginController: UIViewController {
     @objc func handleLogin() {
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
-        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
+        AuthService.shared.logUserIn(withEmail: email, password: password) { (authResult, error) in
             if let err = error {
                 print("DEBUG: Error while signing in Err: \(err.localizedDescription)")
                 return
             }
+            print("DEBUG: User successfully Logged in")
             guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return}
             guard let tab = window.rootViewController as? MainTabController else {return}
             tab.authUserAndUpdateUI()

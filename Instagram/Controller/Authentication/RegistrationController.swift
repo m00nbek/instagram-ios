@@ -106,34 +106,19 @@ class RegistrationController: UIViewController {
         guard let fullname = fullnameTextField.text else {return}
         guard let profileImage = profileImage else {return}
         
-        //let credentials = AuthCredentials(email: email, password: password, username: username, fullname: fullname, profileImage: profileImage)
-        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else {return}
-        let filename = NSUUID().uuidString
-        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
+        let credentials = AuthCredentials(email: email, password: password, username: username, fullname: fullname, profileImage: profileImage)
         
-        storageRef.putData(imageData, metadata: nil) { (meta, error) in
-            storageRef.downloadURL { (url, error) in
-                guard let profileImageUrl = url?.absoluteString else {return}
-                Firebase.Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                    if let error = error {
-                        print("Creating user error\(error.localizedDescription)")
-                        return
-                    }
-                    guard let uid = result?.user.uid else {return}
-                    let values = ["email": email,
-                                  "username": username,
-                                  "fullname": fullname,
-                                  "profileImageUrl": profileImageUrl]
-                    REF_USERS.child(uid).updateChildValues(values) { (error, ref) in
-                        print("DEBUG: Everything working")
-                    }
-                }
+        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+            if let err = error {
+                print("DEBUG: Error while registering Error: \(err.localizedDescription)")
+                return
             }
+            print("DEBUG: User successfully Registered")
+            guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return}
+            guard let tab = window.rootViewController as? MainTabController else {return}
+            tab.authUserAndUpdateUI()
+            self.dismiss(animated: true, completion: nil)
         }
-        //                        guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return}
-        //                        guard let tab = window.rootViewController as? MainTabController else {return}
-        //                        tab.authUserAndUpdateUI()
-        //                        self.dismiss(animated: true, completion: nil)
         
     }
     @objc func handleShowLogin() {

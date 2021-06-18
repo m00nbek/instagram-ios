@@ -10,15 +10,13 @@ import UIKit
 class ProfileController: UICollectionViewController {
     
     // MARK: - Properties
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
     }
     // MARK: - Functions
-    
     func configure() {
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .white
     }
 }

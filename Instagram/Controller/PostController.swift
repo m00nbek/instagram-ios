@@ -28,17 +28,12 @@ class PostController: UIViewController {
     private let imagePicker = UIImagePickerController()
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
-    private let caption: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Write a caption..."
-        tf.font = UIFont.systemFont(ofSize: 16)
-        tf.adjustsFontSizeToFitWidth = true
-        tf.backgroundColor = .systemBlue
-        return tf
-    }()
+    private let caption: UITextView = CaptionTextView()
     private let cancelButton: UIBarButtonItem = {
         let btn = UIBarButtonItem()
         btn.action = #selector(cancel)
@@ -66,18 +61,24 @@ class PostController: UIViewController {
     }
     // MARK: - Functions
     private func configureUI() {
-        // setup UIBarButtonItem
+        // setup components
         isUserPosting = true
         cancelButton.target = self
         postButton.target = self
-        view.addSubview(imageView)
-        view.addSubview(caption)
-        // setup components
-        imageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                         bottom: caption.topAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
-        caption.anchor(top: imageView.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor,
-                       bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor,
-                       height: 150)
+        caption.backgroundColor = .secondarySystemBackground
+        caption.isScrollEnabled = true
+        caption.translatesAutoresizingMaskIntoConstraints = false
+        let stack = UIStackView(arrangedSubviews: [imageView, caption])
+        stack.axis = .horizontal
+        stack.spacing = 5
+        stack.alignment = .leading
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stack)
+        // UIStackView constraints
+        stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        stack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        stack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        stack.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     private func configure() {
         navigationItem.title = "New Post"

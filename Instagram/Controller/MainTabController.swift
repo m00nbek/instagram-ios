@@ -15,7 +15,6 @@ class MainTabController: UITabBarController {
     // MARK: - Properties
     var profileImage = UIImage(named: "ic_person_outline_white_2x")! {
         didSet {
-            configureViewControllers()
         }
     }
     // MARK: - Lifecycle
@@ -34,7 +33,11 @@ class MainTabController: UITabBarController {
                 self.present(nav, animated: true, completion: nil)
             }
         } else {
-            configureViewControllers()
+            DispatchQueue.global(qos: .background).async {
+                UserService.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { user in
+                    self.configureViewControllers(withUser: user)
+                }
+            }
             //            DispatchQueue.global(qos: .background).async {
             //                UserService.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { user in
             //                    if let urlString = user.profileImageUrl?.absoluteString {
@@ -89,8 +92,9 @@ class MainTabController: UITabBarController {
             fatalError("DEBUG: Error while signing out Err: \(error)")
         }
     }
-    func configureViewControllers() {
+    func configureViewControllers(withUser user: User) {
         let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
+        feed.user = user
         let nav1 = templateNavController(image: UIImage(named: "home_unselected")!, rootViewController: feed)
         
         let explore = ExploreController(collectionViewLayout: UICollectionViewFlowLayout())

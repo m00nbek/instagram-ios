@@ -8,7 +8,7 @@
 import UIKit
 
 struct Post {
-    var imageUrl: String
+    var user: User
     var likes: Int
     var caption: String
 }

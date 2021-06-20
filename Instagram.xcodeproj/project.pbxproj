@@ -27,6 +27,7 @@
 		AB43D8482622D81C00645350 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43D8472622D81C00645350 /* Utilities.swift */; };
 		AB821927263AD1ED00FA291A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB821926263AD1EC00FA291A /* GoogleService-Info.plist */; };
 		AB9211312675DF0300F771D5 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9211302675DF0300F771D5 /* CaptionTextView.swift */; };
+		ABA2BE9A267FA87D00BD9FCA /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2BE99267FA87D00BD9FCA /* PostCell.swift */; };
 		ABC77D042674E4E700C0B54B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC77D032674E4E700C0B54B /* User.swift */; };
 		ABC77D062674E77C00C0B54B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC77D052674E77C00C0B54B /* UserService.swift */; };
 		F44A890B8907963BA7BCB5A2 /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D450FAD8C6AAA77261AE0D91 /* Pods_Instagram.framework */; };
@@ -57,6 +58,7 @@
 		AB43D8472622D81C00645350 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		AB821926263AD1EC00FA291A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AB9211302675DF0300F771D5 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
+		ABA2BE99267FA87D00BD9FCA /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		ABC77D032674E4E700C0B54B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ABC77D052674E77C00C0B54B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D450FAD8C6AAA77261AE0D91 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				AB9211302675DF0300F771D5 /* CaptionTextView.swift */,
+				ABA2BE99267FA87D00BD9FCA /* PostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				AB43D8082622BE5D00645350 /* MainTabController.swift in Sources */,
 				AB43D8212622C71400645350 /* ExploreController.swift in Sources */,
 				AB43D8042622BE5D00645350 /* AppDelegate.swift in Sources */,
+				ABA2BE9A267FA87D00BD9FCA /* PostCell.swift in Sources */,
 				AB43D83E2622D3B800645350 /* Extensions.swift in Sources */,
 				AB43D8302622CF3400645350 /* Post.swift in Sources */,
 				AB43D8062622BE5D00645350 /* SceneDelegate.swift in Sources */,

@@ -12,3 +12,6 @@ let STORAGE_PROFILE_IMAGES = STORAGE_REF.child("profile_images")
 let DB_REF = Database.database().reference()
 let REF_USERS = DB_REF.child("users")
 let REF_POSTS = DB_REF.child("posts")
+
+// MARK: - Cells
+let postCellIdentifier = "postCellIdentifier"
